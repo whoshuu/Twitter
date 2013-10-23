@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Twitter</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    
+    <string name="login_label">Sign In</string>
+    <string name="title_activity_timeline">Home Timeline</string>
+    <string name="title_activity_compose">Compose Tweet</string>
+    <string name="compose_icon_title">Compose</string>
+    <string name="cancel_compose_icon_title">Cancel</string>
+    <string name="compose_tweet_label">Compose tweet:</string>
+    <string name="character_label">/140 Characters</string>
+    <string name="zero_characters">0</string>
+    <string name="send_tweet">Tweet!</string>
+    <string name="hello_label">Hello.</string>
+    <string name="welcome_label">Welcome to Twitter.</string>
+
+</resources>
