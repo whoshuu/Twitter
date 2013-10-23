@@ -106,6 +106,11 @@ public class TimelineActivity extends Activity {
 				public void onFailure(Throwable e) {
 					Toast.makeText(TimelineActivity.this, "Failed to retrieve tweets", Toast.LENGTH_LONG).show();
 				}
+				
+				@Override
+				protected void handleFailureMessage(Throwable e, String responseBody) {
+					Toast.makeText(TimelineActivity.this, "Currently being rate limited", Toast.LENGTH_LONG).show();
+				}
 			}, max_id, 10 - dbTweets.size());
 		} else {
 			tweetsAdapter.addAll(dbTweets);
