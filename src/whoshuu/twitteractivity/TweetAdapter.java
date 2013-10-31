@@ -43,6 +43,9 @@ public class TweetAdapter extends ArrayAdapter<Tweet> {
 		tvText.setText(Html.fromHtml(urlize(tweet.text)));
 		tvText.setMovementMethod(LinkMovementMethod.getInstance());
 		tvTime.setText(timeDifference(tweet.time));
+		ivUser.setTag(tweet.user.getUid());
+		tvAuthor.setTag(tweet.user.getUid());
+		tvScreen.setTag(tweet.user.getUid());
 		return view;
 	}
 	

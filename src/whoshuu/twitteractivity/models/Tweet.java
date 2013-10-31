@@ -13,7 +13,6 @@ import org.json.JSONObject;
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
-import com.activeandroid.query.Select;
 
 @Table(name = "tweets")
 public class Tweet extends Model implements Serializable{
@@ -29,6 +28,8 @@ public class Tweet extends Model implements Serializable{
 	public User user;
 	@Column(name = "tid")
 	public long tid;
+	@Column(name = "type")
+	public String type;
 	@Column(name = "ms")
 	public long ms;
 	
@@ -40,7 +41,7 @@ public class Tweet extends Model implements Serializable{
 		return this.user.getAuthor() + " " + this.user.getScreenName() + ": " + this.text + "   TIME: " + this.time; 
 	}
 	
-	public static Tweet fromJson(JSONObject object) {
+	public static Tweet fromJson(JSONObject object, String type) {
 		Tweet tweet = new Tweet();
 		try {
 			tweet.text = object.getString("text");
@@ -48,6 +49,7 @@ public class Tweet extends Model implements Serializable{
 			tweet.time = dateFormat.parse(object.getString("created_at"), new ParsePosition(0));
 			tweet.user = User.fromJson(object.getJSONObject("user"));
 			tweet.tid = object.getLong("id");
+			tweet.type = type;
 			tweet.ms = tweet.time.getTime();
 		} catch (JSONException e) {
 			e.printStackTrace();
@@ -57,7 +59,7 @@ public class Tweet extends Model implements Serializable{
 		return tweet;
 	}
 	
-	public static ArrayList<Tweet> fromJson(JSONArray jsonArray) {
+	public static ArrayList<Tweet> fromJson(JSONArray jsonArray, String type) {
 		ArrayList<Tweet> tweets = new ArrayList<Tweet>(jsonArray.length());
 		
 		for (int i = 0; i < jsonArray.length(); i++) {
@@ -69,20 +71,12 @@ public class Tweet extends Model implements Serializable{
 				continue;
 			}
 			
-			Tweet tweet = Tweet.fromJson(tweetJson);
+			Tweet tweet = Tweet.fromJson(tweetJson, type);
 			if (tweet != null) {
 				tweets.add(tweet);
 			}
 		}
 		
 		return tweets;
-	}
-	
-	public static ArrayList<Tweet> getRecent() {
-		return new Select()
-				.from(Tweet.class)
-				.orderBy("ms DESC")
-				.limit("10")
-				.execute();
 	}
 }

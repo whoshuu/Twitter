@@ -23,10 +23,18 @@ public class User extends Model implements Serializable{
 	public int uid;
 	@Column(name = "author")
 	public String author;
+	@Column(name = "tag")
+	public String tag;
 	@Column(name = "screen")
 	public String screen;
 	@Column(name = "imageUrl")
 	public String imageUrl;
+	@Column(name = "numTweets")
+	public int numTweets;
+	@Column(name = "followers")
+	public int followers;
+	@Column(name = "friends")
+	public int friends;
 	
 	public User() {
 		super();
@@ -47,8 +55,12 @@ public class User extends Model implements Serializable{
 				user = new User();
 				user.uid = object.getInt("id");
 				user.author = object.getString("name");
+				user.tag = object.getString("description");
 				user.screen = "@" + object.getString("screen_name");
 				user.imageUrl = object.getString("profile_image_url");
+				user.numTweets = object.getInt("statuses_count");
+				user.followers = object.getInt("followers_count");
+				user.friends = object.getInt("friends_count");
 				user.save();
 			}
 			return user;
@@ -72,5 +84,25 @@ public class User extends Model implements Serializable{
 	
 	public String getImageUrl() {
 		return this.imageUrl;
+	}
+	
+	public String getTag() {
+		return this.tag;
+	}
+	
+	public int getNumTweets() {
+		return this.numTweets;
+	}
+	
+	public int getFollowers() {
+		return this.followers;
+	}
+	
+	public int getFriends() {
+		return this.friends;
+	}
+	
+	public int getUid() {
+		return this.uid;
 	}
 }
