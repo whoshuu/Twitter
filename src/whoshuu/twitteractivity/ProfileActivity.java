@@ -2,9 +2,11 @@ package whoshuu.twitteractivity;
 
 import org.json.JSONObject;
 
+import whoshuu.twitteractivity.fragments.UserTimelineFragment;
 import whoshuu.twitteractivity.models.User;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.view.Menu;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -17,6 +19,7 @@ public class ProfileActivity extends FragmentActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_profile);
+		loadUserTimeline(getIntent().getIntExtra("uid", -1));
 		loadProfileInfo(getIntent().getIntExtra("uid", -1));
 	}
 
@@ -50,5 +53,11 @@ public class ProfileActivity extends FragmentActivity {
 		ImageView ivProfile = (ImageView) findViewById(R.id.ivProfile);
 		ImageLoader imageLoader = ImageLoader.getInstance();
 		imageLoader.displayImage(user.getImageUrl(), ivProfile);
+	}
+	
+	private void loadUserTimeline(int uid) {
+		FragmentManager manager = getSupportFragmentManager();
+		UserTimelineFragment userTimeline = (UserTimelineFragment) manager.findFragmentByTag("User");
+		userTimeline.setUid(uid);
 	}
 }

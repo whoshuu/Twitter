@@ -12,10 +12,11 @@ import android.widget.Toast;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 public class UserTimelineFragment extends TweetsListFragment {
+	private int uid;
 	
 	@Override
 	protected void updateTweets() {
-		tweetType = String.valueOf(getActivity().getIntent().getIntExtra("uid", -1));
+		tweetType = String.valueOf(uid);
 		super.updateTweets();
 	}
 	
@@ -42,6 +43,10 @@ public class UserTimelineFragment extends TweetsListFragment {
 			protected void handleFailureMessage(Throwable e, String responseBody) {
 				Toast.makeText(getActivity(), "Currently being rate limited", Toast.LENGTH_LONG).show();
 			}
-		}, max_id, 10 - dbTweets.size(), getActivity().getIntent().getIntExtra("uid", -1));
+		}, max_id, 10 - dbTweets.size(), uid);
+	}
+	
+	public void setUid(int uid) {
+		this.uid = uid;
 	}
 }
