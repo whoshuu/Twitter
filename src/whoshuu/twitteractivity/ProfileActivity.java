@@ -19,8 +19,9 @@ public class ProfileActivity extends FragmentActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_profile);
-		loadUserTimeline(getIntent().getIntExtra("uid", -1));
-		loadProfileInfo(getIntent().getIntExtra("uid", -1));
+		int uid = getIntent().getIntExtra("uid", -1);
+		loadUserTimeline(uid);
+		loadProfileInfo(uid);
 	}
 
 	@Override
